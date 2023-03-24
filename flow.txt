@@ -1,0 +1,97 @@
+
+
+open employees, shift_data, scanned_uids, shifts.csv
+
+
+scanned_uids holds all rfid ids that the device has scanned
+
+
+shift_data.csv holds the id and UNIX-timestamp
+{
+    id, timestamp
+    44fedac534, 1231243434543
+    44fedac534, 1231243440530
+}
+
+shifts.csv has the id, employee name and duration of shift.
+{
+    Name,chip id,shift duration //header row
+    Francisco Fischer,4f3ade4329,08:32:23
+    Ramasan Saltaev,45358fadec,08:39:25
+}
+
+the employees.csv file has following layout
+{
+    Name, chip id //header row
+    Francisco Fischer
+}
+
+
+
+
+
+outline:
+
+    ( simple 0
+
+        load_ids();
+
+        while (true)
+            id = read()
+
+            if (exists(id) == false)
+                add_new_id()
+                notify()
+            else
+                set_shift_data()
+    )
+
+
+    ( simple 1
+
+        employees_csv_file = open(employees.csv)
+
+        struct employee *employees;
+        int count = parse_employees_file(&employees, employees_csv_file);           // FUNCTION
+
+        if (count < 0) {
+            // employees are freed upon failure
+            puts("failed to parse employees.csv")
+        }
+        close(employees_csv_file);
+
+        char id_buf[ID_BUF_LEN + REDZONE];
+
+        while (true) {
+            int id_index;
+            ssize_t id_len = read(STDIN_FILENO, id_buf, ID_BUF_LEN);
+            if (id_len < ID_BUF_LEN) {
+                printf("invalid id length! max is %d\n", sizeof(id_buf));
+
+               continue;
+            }
+
+            clear_line(STDIN_FILENO);                                               // FUNCTION
+
+            // terminate string
+            id_buf[ID_BUF_LEN] = 0x00;
+
+
+            if (!id_exists(id_buf, &id_index)) {                                                     // FUNCTION
+                add_id(id_buf);                                                           // FUNCTION
+                notify_new_id(id_buf);                                                    // FUNCTION
+            } else {
+                &employees[id_index]);                                                      // FUNCTION
+            }
+        }
+
+    )
+
+
+    the employees file is parsed int an array of structures.
+
+    struct employee {
+        uint32_t uid;
+        char name[MAX_NAME_LENGTH];
+    };
+
