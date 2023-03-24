@@ -65,11 +65,10 @@ main(int argc, char **argv)
 
     dprintf(log_fd, "current employee count: %d\n", employee_count);
 
-    TODO("Remove test loop!");
 
     for (int i = 0; i < employee_count; ++i) {
         printf("employees[%d].name = %s\n", i, employees[i].name);
-        printf("employees[%d].uid = %s\n", i, employees[i].uid);
+        printf("employees[%d].uid = %d\n", i, employees[i].uid);
     }
 
     delete_employees(&employees);
