@@ -18,9 +18,9 @@ ssize_t get_employee_info(struct employee **employees, int csv_file);
 
 parses the employee.csv file and packages the information into the struct employee array.<br>
 ```c
-struct employee {<br>
+struct employee {
 char *uid;
 char *msg;
-}<br>
+}
 ```
 
