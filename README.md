@@ -10,4 +10,5 @@ If an employee is to be deleted, the line containing his name has to be removed 
 
 ```c
 ERR_MSG_ASSERT(cond, msg)
-```&nbsp;&nbsp;is a macro that checks for a condition and throws an error if 
+```
+&nbsp;&nbsp;is a macro that checks for a condition and throws an error if 
