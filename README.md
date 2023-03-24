@@ -11,4 +11,16 @@ If an employee is to be deleted, the line containing his name has to be removed 
 ```c
 ERR_MSG_ASSERT(cond, msg)
 ```
-&nbsp;&nbsp;is a macro that checks for a condition and throws an error if 
+&nbsp;&nbsp;is a macro that checks for a condition and throws an error if the condition is not met
+```c
+ssize_t get_employee_info(struct employee **employees, int csv_file);
+```
+
+parses the employee.csv file and packages the information into the struct employee array.<br>
+```c
+struct employee {<br>
+char *uid;
+char *msg;
+}<br>
+```
+
